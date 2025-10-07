@@ -1,5 +1,3 @@
-# asas
-study files
 # Time Table (mid sem)
 
 | Date | Day | Time  | Subject          |

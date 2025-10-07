@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <script>
+            //declaration and definition of a function
+            function plus(){
+                let counter = document.getElementById("demo").innerHTML;
+                counter ++;
+                document.getElementById("demo").innerHTML = counter;
+            }
+            function minus(){
+                let counter = document.getElementById("demo").innerHTML;
+                counter --;
+                document.getElementById("demo").innerHTML = counter;
+            }
+            //check type
+            let a = "1";
+            let b = 1;
+            if(a === b){
+                console.log("yes a and b are equal");
+            }
+            else if(a==b){
+                console.log("yes yes")
+            }
+            else{
+                console.log("no a and b are not equal");
+            }
+
+            //ternary operator
+            console.log(a==b?"True":"False")
+
+            //data parsing
+            console.log(a+b);
+            console.log(parseInt(a)+b);
+
+            //String functions
+            let aString = "Arpitha";
+            console.log(aString.charAt(6));
+
+            //Concatination
+            let bString = "Sreenivasan";
+            let cString = aString+bString;
+            console.log(cString.indexOf("a"));
+            console.log(cString.lastIndexOf("a"));
+        </script>
+    </head>
+    <body>
+        <button onclick="plus()">+</button>
+        <button onclick="minus()">-</button>
+        <p id="demo">0</p>
+
+        <!--different types of outputing data-->
+        <button onclick="confirm('are you sure?')">Confirm</button>
+        <button onclick="alert('this is an alert')">Alert</button>
+        <button onclick="let val = prompt('What is your name?'); document.write(val);">Prompt</button>
+    </body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Different Methods of Embedding CSS</title>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Internal CSS -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+        }
+        h1 {
+            color: #2e86de;
+            text-align: center;
+        }
+        .internal-example {
+            background-color: #d6eaf8;
+            padding: 10px;
+            width: 70%;
+            margin: 10px auto;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Different Methods of Embedding CSS</h1>
+
+    <!-- Inline CSS Example -->
+    <h2 style="color: green; text-align: center;">1. Inline CSS</h2>
+    <p style="color: darkgreen; text-align: center;">
+        Inline CSS is applied directly inside an HTML tag using the <b>style</b> attribute.
+    </p>
+
+    <!-- Internal CSS Example -->
+    <h2 style="text-align:center;">2. Internal CSS</h2>
+    <p class="internal-example">
+        Internal CSS is defined within a &lt;style&gt; tag inside the &lt;head&gt; section of the HTML page. 
+        It affects only the current page.
+    </p>
+
+    <!-- External CSS Example -->
+    <h2 style="text-align:center;">3. External CSS</h2>
+    <p class="external-example">
+        External CSS is written in a separate file (style.css) and linked using the &lt;link&gt; tag. 
+        It allows multiple pages to share the same style.
+    </p>
+
+</body>
+</html>

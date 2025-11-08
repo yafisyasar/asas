@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Registration Form</title>
+    <style>
+        h2 {
+            text-align: center;
+            color: red;
+        }
+        img {
+            width: 45px;
+            vertical-align: middle;
+        }
+        form {
+            width: 400px;
+            margin: 20px auto;
+            padding: 20px; 
+        }
+        
+    </style>
+</head>
+<body>
+
+<h2>
+    <img src="https://www.pngall.com/wp-content/uploads/15/User-PNG-Image.png">
+    Employee Registration Form
+</h2>
+
+<form>
+
+    
+        <label><input type="radio" name="gen"> Mr.</label>
+        <label><input type="radio" name="gen"> Mrs.</label>
+        <label><input type="radio" name="gen"> Ms.</label><br>
+    
+    <label>First Name:</label>
+    <input type="text" placeholder="First Name"><br>
+
+    <label>Last Name:</label>
+    <input type="text" placeholder="Last Name"><br>
+
+    <label>Mail Address1:</label>
+    <input type="text"><br>
+
+    <label>Mail Address2:</label>
+    <input type="text"><br>
+
+    <label>City:</label>
+    <input type="text"><br>
+
+    <label>State:</label>
+    <select>
+        <option>Gujarat</option>
+        <option>Maharashtra</option>
+        <option>Rajasthan</option>
+        <option>Punjab</option>
+        <option>Tamil Nadu</option>
+    </select><br>
+
+    <label>Zip:</label>
+    <input type="text"><br>
+
+    <label>Upload Photo:</label>
+    <input type="file"><br>
+
+    <label>E-Mail:</label>
+    <input type="email"><br>
+
+    <label>Mobile:</label>
+    <input type="tel" placeholder="+91"><br>
+
+    <label>Languages Known:</label>
+        <input type="checkbox"> Gujarati <br>
+        <input type="checkbox"> Hindi<br>
+        <input type="checkbox"> English<br>
+        <input type="checkbox"> Marathi<br>
+
+    <label>Additional Information:</label>
+    <textarea rows="4" placeholder="Optional"></textarea>
+
+    <p class="buttons">
+        <input type="submit" value="submit">
+        <input type="reset" value="reset">
+    </p>
+
+</form>
+
+</body>
+</html>

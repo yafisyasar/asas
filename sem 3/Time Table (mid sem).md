@@ -1,13 +1,13 @@
-# Time Table (mid sem)
+# Time Table (end sem)
 
 | Date | Day | Time  | Subject              |
 | ---- | --- | ----- | -------------------- |
-| Oct-13   | Mon | 2-4   | Maths✅           |
-| Oct-14   | Tue | 10-12 | DS✅              |
-| Oct-14   | Tue | 2-4   | Life Skills✅     |
-| Oct-15   | Wed | 10-12 | OS✅              |
-| Oct-15   | Wed | 2-4   | Open Elective✅   |
-| Oct-16   | Thu | 10-12 | COA✅             |
-| Oct-17   | Fri | 10-4  | DS Lab✅          |
-| Oct-18   | Sat | 10-12 | AVP              |
-| Oct-18   | Sat | 2-4   | Web Technologies |
+| Nov-20   | Thu | 10-1| DS           |
+| Nov-27   | Thu | 10-1| Open Elective|
+| Nov-29   | Sat | 10-1| Maths        |
+| Dec-02   | Tue | 10-1| OS           |
+| Dec-04   | Thu | 10-1| DS Lab       |
+| Dec-06   | Sat | 1-4 | AVP          |
+| Dec-09   | Tue | 10-1| Web Tech     |
+| Dec-12   | Fri | 10-1| COA          |
+| Dec-15   | Sat | 10-1| Life Skills  |

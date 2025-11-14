@@ -8,6 +8,6 @@
 | Dec-02   | Tue | 10-1| OS           |
 | Dec-04   | Thu | 10-1| DS Lab       |
 | Dec-06   | Sat | 1-4 | AVP          |
-| Dec-09   | Tue | 10-1| Web Tech     |
 | Dec-12   | Fri | 10-1| COA          |
 | Dec-15   | Sat | 10-1| Life Skills  |
+| Dec-16   | Sun | 10-1| Web Tech     |

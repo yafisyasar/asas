@@ -1,4 +1,3 @@
-/* link-https://www.programiz.com/dsa/linked-list-operations   --insertion,deletion*/
 #include<stdio.h>
 #include<stdlib.h>
 struct node

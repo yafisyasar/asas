@@ -1,4 +1,4 @@
-# ✅ **UNIT 1 — INDIAN FINANCIAL SYSTEM**
+#   **UNIT 1 — INDIAN FINANCIAL SYSTEM**
 
 ### **Indian Financial System – Components**
 
@@ -112,7 +112,7 @@ Includes: Call money, treasury bills, commercial bills.
 
 ---
 
-# ✅ **UNIT 2 — PRIMARY MARKET**
+#   **UNIT 2 — PRIMARY MARKET**
 
 ### **Primary Market**
 
@@ -206,7 +206,7 @@ Shares offered to existing shareholders in proportion to their holdings.
 
 ---
 
-# ✅ **UNIT 3 — SECONDARY MARKET**
+#   **UNIT 3 — SECONDARY MARKET**
 
 ### **Secondary Market**
 
@@ -307,7 +307,7 @@ Investment in unlisted companies for growth, restructuring or buyouts.
 
 ---
 
-# ✅ **UNIT 4 — MUTUAL FUNDS**
+#   **UNIT 4 — MUTUAL FUNDS**
 
 ### **Meaning**
 
@@ -375,7 +375,7 @@ Custodian holds securities.
 
 ---
 
-# ✅ **UNIT 5 — DERIVATIVES**
+#   **UNIT 5 — DERIVATIVES**
 
 ### **Derivatives**
 

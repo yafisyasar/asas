@@ -1,0 +1,49 @@
+instruction format
+
+
+The instruction format in computer architecture defines the layout of the bits of an instruction, including the opcode (operation code) and the address fields (operands). The number of address fields directly impacts the instruction length, program length, and execution speed.
+
+Here is a breakdown of one, two, and three-address instruction formats:
+
+1️⃣ One-Address Instruction
+Concept: This format explicitly specifies one operand address. The second operand is implicitly understood to be the Accumulator (AC) register.
+
+Result Location: The result of the operation is always stored back into the Accumulator (AC).
+
+Program Length: Requires many instructions to perform complex tasks, resulting in longer programs.
+
+Example for X=A+B:
+
+LOAD A (Action: AC←M[A])
+
+ADD B (Action: AC←AC+M[B])
+
+STORE X (Action: M[X]←AC)
+
+2️⃣ Two-Address Instruction
+Concept: This format explicitly specifies two operand addresses, which can be registers or memory locations.
+
+Result Location: One of the address fields often serves as both a source operand and the destination for the result, meaning one of the original source values is overwritten.
+
+Program Length: Requires fewer instructions than one-address format, leading to shorter programs. This is common in CISC architectures (like x86).
+
+Example for X=A+B (using a register R1):
+
+MOV R1, A (Action: R1←M[A])
+
+ADD R1, B (Action: R1←R1+M[B])
+
+MOV X, R1 (Action: M[X]←R1)
+
+3️⃣ Three-Address Instruction
+Concept: This format explicitly specifies three operand addresses: two source operands and one destination operand.
+
+Result Location: The result is stored in the specified destination address, which is distinct from the two source operands.
+
+Program Length: Requires the fewest instructions to write a program, making the code highly compact. This is typical in RISC architectures (like ARM).
+
+Example for X=A+B (using a register R1):
+
+ADD R1, A, B (Action: R1←M[A]+M[B])
+
+MOV X, R1 (Action: M[X]←R1)

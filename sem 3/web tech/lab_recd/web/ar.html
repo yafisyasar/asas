@@ -1,0 +1,28 @@
+<html>
+<head><title>array</title></head>
+<body>
+<script>
+let a=[10,34,56,12,34];
+console.log("OG array:"+a);
+console.log("array length:"+a.length);
+a.unshift(50);
+console.log("add to beg:"+a);
+a.push(69);
+console.log("add to end:"+a);
+let b=a.shift();
+console.log("remove from beg:"+b);
+console.log("array:"+a);
+let c=a.pop();
+console.log("remove from end:"+c);
+console.log("ARray:"+a);
+console.log("displaying elements:");
+a.forEach(num=> console.log(num));
+/*
+console.log("Displaying all elements using forEach():");
+a.forEach((num, index) => {
+    console.log(`Element at index ${index}: ${num}`);
+});
+*/
+</script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<html>
+<head><title>calculator</title></head>
+<body>
+<script>
+function add(a,b)
+{
+ return a+b;
+}
+
+function sub(a,b)
+{
+return a-b;
+}
+
+function mul(a,b)
+{
+ return a*b;
+}
+
+function div(a,b)
+{
+ if(b==0)
+ {
+ return "cannot divide a numebr by zero";
+ }
+ return a/b;
+}
+
+function cal(n1,n2,op)
+{
+ switch(op)
+ {
+case '+': return add(n1,n2);
+case '-': return sub(n1,n2);
+case '*': return mul(n1,n2);
+case '/': return div(n1,n2);
+default : return 'invalid operation';
+ }
+}
+
+let a=parseInt(prompt("enter 1st no:"));
+let b=parseInt(prompt("enter 2nd no:"));
+let c=prompt("enter operation (either +, -, /, *)");
+let res=cal(a,b,c);
+alert("result="+res);
+</script>
+</body>
+</html>
+

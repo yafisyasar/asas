@@ -1,0 +1,29 @@
+// Create an object to store employee details
+let employee = {
+    id: 101,
+    name: "John Doe",
+    salary: 55000
+};
+
+// Print formatted employee details
+console.log("=== Employee Details ===");
+console.log(`Employee ID   : ${employee.id}`);
+console.log(`Employee Name : ${employee.name}`);
+console.log(`Salary        : $${employee.salary.toLocaleString()}`);
+
+
+
+
+multiple employees:
+// Array of employee objects
+let employees = [
+    { id: 101, name: "John Doe", salary: 55000 },
+    { id: 102, name: "Jane Smith", salary: 62000 },
+    { id: 103, name: "Alice Johnson", salary: 48000 }
+];
+
+// Print details of all employees
+console.log("=== Employee Details ===");
+employees.forEach(emp => {
+    console.log(`ID: ${emp.id} | Name: ${emp.name} | Salary: $${emp.salary.toLocaleString()}`);
+});

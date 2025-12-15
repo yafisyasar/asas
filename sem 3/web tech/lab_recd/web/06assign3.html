@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Website</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="registration.html">Student Registration</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section class="hero">
+        <h1>Welcome to Our College</h1>
+        <p>Empowering the future, one student at a time.</p>
+    </section>
+    
+    <section class="content">
+        <h2>Our Vision</h2>
+        <p>We strive to provide quality education and foster innovation.</p>
+    </section>
+    
+    <footer>
+        <p>&copy; 2025 Our College | All Rights Reserved</p>
+    </footer>
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - College Website</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="registration.html">Student Registration</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section class="about">
+        <h1>About Our College</h1>
+        <p>Our college has been providing quality education for over 50 years. We offer a wide range of undergraduate and postgraduate programs.</p>
+        <h2>Our History</h2>
+        <p>Founded in 1975, we have grown to become one of the leading educational institutions in the country.</p>
+    </section>
+    
+    <footer>
+        <p>&copy; 2025 Our College | All Rights Reserved</p>
+    </footer>
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration - College Website</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="registration.html">Student Registration</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section class="registration">
+        <h1>Student Registration Form</h1>
+        <form action="#" method="POST">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name" required><br><br>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br><br>
+            
+            <label for="course">Select Course:</label>
+            <select id="course" name="course">
+                <option value="engineering">Engineering</option>
+                <option value="medicine">Medicine</option>
+                <option value="business">Business</option>
+            </select><br><br>
+            
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" name="dob" required><br><br>
+            
+            <button type="submit">Register</button>
+        </form>
+    </section>
+    
+    </body>
+</html>
+
+
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+header {
+    background: #333;
+    color: white;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+header nav ul {
+    list-style: none;
+}
+
+header nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+header nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    color: white;
+    text-align: center;
+    padding: 50px 0;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+/* Main Content Section */
+.content {
+    text-align: center;
+    padding: 30px 20px;
+    background-color: #f4f4f4;
+    margin-top: 20px;
+}
+
+.content h2 {
+    margin-bottom: 15px;
+}
+
+footer {
+    text-align: center;
+    background-color: #333;
+    color: white;
+    padding: 1rem 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+footer p {
+    font-size: 0.9rem;
+}
+
+/* About Section */
+.about {
+    padding: 40px 20px;
+    background-color: #f4f4f4;
+}
+
+/* Registration Form */
+.registration {
+    padding: 30px 20px;
+    background-color: #e2e2e2;
+    margin-top: 20px;
+}
+
+.registration form {
+    display: grid;
+    grid-gap: 15px;
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.registration label {
+    font-size: 1.1rem;
+}
+
+.registration input,
+.registration select,
+.registration button {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.registration button {
+    background-color: #2575fc;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.registration button:hover {
+    background-color: #6a11cb;
+}
+
+/* Add box shadow on hover effect */
+.registration input:hover,
+.registration select:hover,
+.registration button:hover {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+

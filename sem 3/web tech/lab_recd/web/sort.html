@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head><title>sort</title></head>
+<body>
+<script>
+function large(arr)
+{
+arr.sort(function(a,b){ return b-a; });
+return arr[1];
+}
+
+<!-- DYNAMIC METHOD: -->
+let a=prompt("enter array with commas:");
+let mar=a.split(',');
+let res=large(mar);
+alert("2nd largest="+res);
+
+<!--  STATIC METHOD:
+let n=[12,4,5,7,89];
+let lrg=large(n);
+console.log("2nd largest="+lrg);
+-->
+
+</script>
+</body>
+</html>
+
+

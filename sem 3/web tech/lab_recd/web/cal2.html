@@ -1,0 +1,54 @@
+<html>
+<head><title>calculator</title></head>
+<body>
+<h2>Simple Calculator</h2>
+<input type="text" id="n1" placeholder="Enter 1st no:">
+<input type="text" id="n2" placeholder="Enter 2nd no:">
+<br><br>
+<button onclick="add()">+</button>
+<button onclick="sub()">-</button>
+<button onclick="mul()">*</button>
+<button onclick="div()">/</button>
+<p id="res">Result:</p>
+<script>
+
+function getNumbers()
+{
+let a=parseFloat(document.getElementById("n1").value);
+let b=parseFloat(document.getElementById("n2").value);
+return[a,b];
+}
+
+function add()
+{
+const[a,b]=getNumbers();
+document.getElementById('res').innerText= "Result: " +(a+b);
+}
+
+function sub()
+{
+const[a,b]=getNumbers();
+document.getElementById('res').innerText= "result:" +(a-b);
+}
+
+function mul()
+{
+const[a,b]=getNumbers();
+document.getElementById('res').innerText= "result:" +(a*b);
+}
+
+function div()
+{
+const[a,b]=getNumbers();
+if(b==0)
+{
+document.getElementById('res').innerText= "Error: Cannot divide by zero";
+}
+ else
+ {
+ document.getElementById('res').innerText= "Result:" +(a/b);
+ }
+}
+</script>
+</body>
+</html>

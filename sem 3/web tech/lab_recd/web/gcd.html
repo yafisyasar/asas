@@ -1,0 +1,24 @@
+<html>
+<head><title>gcd</title></head>
+<body>
+<script>
+function gcd(a,b)
+{
+ if(b==0)
+ {
+ return a;
+ }
+ else
+ {
+  return gcd(b,a%b);
+ }
+}
+
+let n1=parseInt(prompt("enter a no:"));
+let n2=parseInt(prompt("enter a no:"));
+let g=gcd(n1,n2);
+alert("GCD="+g);
+</script>
+</body>
+</html>
+

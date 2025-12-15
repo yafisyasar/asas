@@ -1,0 +1,24 @@
+<html>
+<head>
+<title>grade</title>
+</head>
+<body>
+marks: <input type="number" id="mark" max="100" step="1">
+<button onclick="checkgr()">check grade</button>
+<p id="res"></p>
+
+<script>
+ function checkgr()
+{
+let gr="";
+m=document.getElementById("mark").value;
+if(m>=90) gr="A+";
+else if(m >= 80) gr="A";
+  else if(m >= 70) gr="B+";
+  else if(m >= 60) gr="B";
+  else if(m >= 50) gr="C";
+  else gr="Fail";
+document.getElementById("res").innerHTML="grade="+gr;
+}
+</script>
+</body> </html>

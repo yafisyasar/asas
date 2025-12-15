@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTf-8">
+<student_details>
+
+<student>
+ <fname>mark</fname>
+ <lname>manson</lname>
+ <dob>28-07-2000</dob>
+ <gender>male</gender>
+ <phone>9960060097</phone>
+ <course>BCA</course>
+</student>
+
+<student>
+<fname>mary</fname>
+ <lname>joseph</lname>
+ <dob>22-06-2000</dob>
+ <gender>female</gender>
+ <phone>9980060097</phone>
+ <course>MCA</course>
+</student>
+
+
+</student_details>
+
+<!--fst name lastname dob gender phone course-->

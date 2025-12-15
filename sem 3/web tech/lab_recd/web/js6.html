@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Counter and Background Changer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            transition: background-color 0.5s ease;
+        }
+        .counter-container {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+        #counterDisplay {
+            font-size: 2em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="counter-container">
+        <button onclick="decrement()">-</button>
+        <p id="counterDisplay">0</p>
+        <button onclick="increment()">+</button>
+    </div>
+
+    <button onclick="changeBackgroundColor()">Change Background Color</button>
+
+    <script>
+        let counter = 0;
+        const counterDisplay = document.getElementById('counterDisplay');
+
+        function increment() {
+            counter++; // Increment the counter value
+            counterDisplay.textContent = counter; // Update the display
+        }
+
+        function decrement() {
+            counter--; // Decrement the counter value
+            counterDisplay.textContent = counter; // Update the display
+        }
+
+        function changeBackgroundColor() {
+            const colors = ['#FFC0CB', '#ADD8E6', '#90EE90', '#FFD700', '#DDA0DD']; // Pastel colors
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            document.body.style.backgroundColor = randomColor;
+        }
+    </script>
+
+</body>
+</html>

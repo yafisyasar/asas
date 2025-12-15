@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<body>
+Marks: <input id="marks" type="number" max="100" step="2"><br><br>
+<button onclick="check()">Check Grade</button>
+<p id="result"></p>
+
+<script>
+function check(){
+  let m = document.getElementById("marks").value;
+  let grade = "";
+  if(m >= 90) grade="A+";
+  else if(m >= 80) grade="A";
+  else if(m >= 70) grade="B+";
+  else if(m >= 60) grade="B";
+  else if(m >= 50) grade="C";
+  else grade="Fail";
+  document.getElementById("result").innerHTML = "Grade: " + grade;
+}
+</script>
+</body>
+</html>

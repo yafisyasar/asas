@@ -1,0 +1,20 @@
+<html>
+<head><title>ARRRAY ROTATION</title></head>
+<body>
+<script>
+function rotate(arr,n)
+{
+ for(i=1;i<=n;i++)
+ {
+let a=arr.pop();
+arr.unshift(a);
+ }
+return arr;
+}
+let ar=[10,20,30,40,50];
+n1=parseInt(prompt("enter no of rotations:"));
+let rot=rotate(ar,n1);
+alert("OG Array:[10,20,30,40,50] Rotated Array:"+rot.join(','));
+</script>
+</body>
+</html>

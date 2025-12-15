@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<script>
+let colors=["red", "green", "yellow", "orange", "blue"];
+let index=0;
+function changeBackground(){
+document.body.style.backgroundColor=colors[index];
+index++;
+document.getElementById("demo").style.fontSize="50px";
+
+if(index >=colors.length)
+{
+ index=0;
+}
+
+}
+</script>
+</head>
+<body>
+<button onclick="changeBackground()">Click to change background </button>
+<p id="demo">Hello</p>
+</body>
+</html>

@@ -1,0 +1,103 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to right, #e0f7fa, #fff);
+    color: #333;
+}
+
+header {
+    background: linear-gradient(to bottom, #7964d8, #466cd4);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: sticky;
+    top: 0;
+}
+
+nav a {
+    margin: 0 15px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    text-decoration: underline;
+    color: #12ee30;
+}
+
+.hero img {
+    width: 75%;
+    height: auto;
+    display: block;
+}
+
+.hero p {
+    text-align: center;
+    font-size: 1.2em;
+    margin: 20px;
+}
+
+.info,
+.form-section {
+    padding: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+table,
+th,
+td {
+    border: 1px solid #ccc;
+}
+
+th,
+td {
+    padding: 10px;
+    text-align: left;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: auto;
+}
+
+label {
+    margin-top: 10px;
+}
+
+input,
+select,
+button {
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #00796b;
+    color: white;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+button:hover {
+    background-color: #004d40;
+}
+
+footer {
+    text-align: center;
+    padding: 15px;
+    background-color: #eee;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}

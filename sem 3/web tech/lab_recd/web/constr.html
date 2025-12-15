@@ -1,0 +1,28 @@
+<html>
+<head>
+<title>constr</title></head>
+<body>
+<script>
+class car
+{
+ constructor(brand,year,model)
+{
+this.brand=brand;
+this.model=model;
+this.year=year;
+}
+
+ start()
+  { 
+ console.log(this.brand+" "+this.year+" "+this.model+" is strting");
+ }
+} 
+
+let c1=new car("buggatti",2018,"veyron");
+let c2=new car("maruti",1997,"alto");
+
+c1.start();
+c2.start();
+</script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Registration Form Validation</title>
+        <script>
+            function validateForm(){
+            var name =document.getElementById("name").value;
+            var age =document.getElementById("age").value; 
+            var password =document.getElementById("password").value; 
+            var repassword =document.getElementById("repassword").value; 
+            if (name==""){
+                alert("name is mandatory");
+                return false;
+            }
+            if (age == ""){
+                alert("age is mandatory");
+                return false;
+            }
+            var namePattern = /^[A-Za-z ]+$/;
+            if (!namePattern.test(name)){
+                alert("invalid format");
+                return false;
+            }
+            if (password != repassword){
+                alert("password does not match with  the re-entered password")
+                return false;
+            }
+            alert ("registration succesfull");
+            return true;
+            }
+        </script>
+    </head>
+    <body>
+        <h2>Registration Form</h2>
+        <form onsubmit="return validateForm()">
+            Name:
+            <input type="text" id="name">
+            <br><br>
+            Age:
+            <input type="text" id="age">
+            <br><br>
+            Password:
+            <input type="password" id="password">
+            <br><br>
+            re-enter password:
+            <input type="password" id="repassword">
+            <br><br>
+            <input type="submit" value="Register">
+        </form>
+    </body>
+</html>

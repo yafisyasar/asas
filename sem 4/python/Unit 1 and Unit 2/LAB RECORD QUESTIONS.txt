@@ -1,0 +1,19 @@
+1.a. Print "Hello World"
+  b. Getting Two values from the user and print
+2. Print a multiplication table using a given number(using for loop)
+3. Write a program to display numbers from a list that satisfy the following condition
+   a. the number should be divisible by 5
+   b. If number is greater 150 skip it and move to the following number
+   c. If number>500 then stop  the loop
+  (use break and continue)
+4. Write a program to check whether given number is palindrome or not.
+5. Write a program to display Fibonacci number up to a limit.
+6. Write a program to perform the list operations where 
+     list1=[34,10,56,28,10,5,20,32,96,85]
+     list2=[18,20]
+   a. append and extend list2 to list1
+   b. insert 100 to the extended list at index 9
+   c. sort the list using the function sort and sorted
+   d. Remove duplicates from the list
+   e. Find the average of the numbers in a list.(use sum and len functions)
+   f. use functions pop, remove, del and clear in the list

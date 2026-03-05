@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Javascript Embedding Methods</title>
+        <script>
+            function internalFunction(){
+                alert("This is an internal Javascript Example!");
+            }
+        </script>
+    </head>
+    <body>
+        <header>
+            <h1>Javascript Embedding Methods</h1>
+        </header>
+        <section>
+            <h2>1.Inline Javascript</h2>
+            <p>Click the button below to see an example of inline Javascript, where the code is written directly within an HTML attribute</p>
+            <button onclick="alert('This is an Inline Javascript Example!')">Inline Javascript</button>
+        </section>
+        <section>
+            <h2>2.Internal Javascript</h2>
+            <p>Click the button below to see an example of Internal Javascript, where the code is written directly within an HTML attribute</p>
+            <button onclick="alert('This is an Internal Javascript Example!')">Internal Javascript</button>
+        </section>
+        <section>
+            <h2>3.External Javascript</h2>
+            <p>Click the button below to see an example of external Javascipt ,where the code is written in a seperate file and linked to this HTML file</p>
+            <button onclick="externalAlert()">External Javascript</button>
+        </section>
+        <script src="external.js"></script>
+    </body>
+</html>

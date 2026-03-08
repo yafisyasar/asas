@@ -1,55 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
+<html>
+<head>
+<title>Simple Calculator</title>
 </head>
+
 <body>
-    <div class="calculator">
-        <h1>simple calculator</h1>
-        <input type="number"id="num1"placeholder="enter first number">
-        <input type="number"id="num2"placeholder="enter second number">
-        <div>
-            <button onclick="calculate('+')">+</button>
-            <button onclick="calculate('-')">-</button>
-             <button onclick="calculate('*')">*</button>
-              <button onclick="calculate('/')">/</button>
-        </div>
-        <div id="result">Result:</div>
-    </div>
-    <script>
-        function calculate(operator){
-            const num1=parseFloat(document.getElementById('num1').value)
-             const num2=parseFloat(document.getElementById('num2').value)
-             let result;
-             if (isNaN(num1)||isNaN(num2)){
-                result="please enter valid numbers";
-             }else{
-                switch(operator){
-                     case'+':
-                     result=num1+num2;
-                     break;
 
-                     case'-':
-                     result=num1-num2;
-                     break;
+<h2>Simple Calculator</h2>
 
-                     case'*':
-                     result=num1*num2;
-                     break;
-                     case'/':
-                     if(num2===0){
-                        result="cannot divided by zero";
-                     }
-                     else{
-                        result=num1/num2;
-                     }
-                     break;
-                     default:
-                        result="invalid opeator";
-                }
-             }
-             document.getElementById('result').innerText=`Result:${result}`;
+<input type="number" id="n1" placeholder="First number">
+<input type="number" id="n2" placeholder="Second number">
 
-        }
-    </script>
+<br><br>
+
+<button onclick="calc('+')">+</button>
+<button onclick="calc('-')">-</button>
+<button onclick="calc('*')">*</button>
+<button onclick="calc('/')">/</button>
+
+<p id="result"></p>
+
+<script>
+function calc(op){
+let a = parseFloat(document.getElementById("n1").value);
+let b = parseFloat(document.getElementById("n2").value);
+let r;
+
+if(op=='+') r=a+b;
+else if(op=='-') r=a-b;
+else if(op=='*') r=a*b;
+else if(op=='/') r=a/b;
+
+document.getElementById("result").innerHTML="Result: "+r;
+}
+</script>
+
 </body>
-  
+</html>

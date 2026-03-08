@@ -1,117 +1,89 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport"content="width=device-width,initial-scale=1.0">
-        <title>Rollover Menu Example</title>
-        <style>
-            body{
-                font-family:Arial, sans-serif;
-                margin:0;
-                padding:0;
-                background:#f4f4f9;
-            }
-            header{
-                background:#0073e6;
-                color:white;
-                text-align:center;
-                padding:20px;
-                border-radius:0 0 8px 8px;
-            }
-            nav{
-                background:#005bb5;
-                display:flex;
-                justify-content:center;
-                padding:10px;
-                box-shadow:0 4px 6px rgba(0,0,0,0.1)
-            }
-            nav a{
-                color:white;
-                text-decoration:none;
-                padding:10px 20px;
-                margin:0 10px;
-                font-size:1rem;
-                transition:all 0.3s ease;
-            }
-            nav a:hover{
-                background:#003366;
+<html>
+<head>
+<title>Rollover Menu</title>
 
-            }
-            /*submenu styles*/
-            .submenu{
-                position:absolute;
-                display:none;
-                background:#003366;
-                padding:10px 0;
-                list-style:none;
-                margin-top:10px;
-                border-radius:4px;
-                box-shadow:0 4px 6px rgba(0,0,0,0.2);
+<style>
+body{
+    font-family: Arial;
+}
 
-            }
-            .submenu li{
-                padding: 8px 20px;
-                white-space:nowrap;
+nav{
+    background: #333;
+    padding:10px;
+}
 
-            }
-            .submenu li a{
-                color:white;
-                text-decoration:none;
-            }
-            .submenu li a:hover{
-                text-decoration:underline;
-            }
+nav a{
+    color:white;
+    margin:10px;
+    text-decoration:none;
+}
 
-            .menu-item{
-                position:relative;
-            }
-            </style>
-            </head>
-            <body>
-                <header>
-                    <h1>Rollover menu example</h1>
-                </header>
-                <nav>
-                    <div class="menu-item">
-                    <a href="#">Home</a>
-                    </div>
-                
-                    
-                    <div class="menu-item">
-                    <a href="#">About</a>
-                    <ul class="submenu">
-                        <li><a href="#">Our team</a></li>
-                        <li><a href="#">History</a></li>
-                        <li><a href="#">Mission</a></li>
-                        </ul>
-                    </div>
-                    <div class="menu-item">
-                        <a href="#">Services</a>
-                    <ul class="submenu">
-                        <li><a href="#">Consulting</a></li>
-                        <li><a href="#">Development</a></li>
-                        <li><a href="#">Support</a></li>
-                        </ul>
-                        </div>
-                        <div class="menu-item">
-                         <a href="#">Contact</a>
-                         </div>
-                         </nav>
-                         <script>
-                            document.querySelectorAll(`.menu-item`).forEach(menuitem=>{
-                                menuitem.addEventListener('mouseenter',()=>{
-                                    const submenu = menuitem.querySelector('.submenu');
-                                    if(submenu){
-                                        submenu.style.display='block';
+.submenu{
+    display:none;
+    list-style:none;
+    padding:5px;
+    background:#555;
+}
+</style>
 
-                                    }
-                                });
-                            menuitem.addEventListener('mouseleave',()=>{
-                                const submenu = menuitem.querySelector('.submenu');
-                                if(submenu){
-                                    submenu.style.display='none';
-                                }
-                            }) ;                           });
-                         </script>  
-            </body>
-            </html>
+</head>
+
+<body>
+
+<h2>Rollover Menu Using JavaScript</h2>
+
+<nav>
+
+<div class="menu-item">
+<a href="#">Home</a>
+</div>
+
+<div class="menu-item">
+<a href="#">About</a>
+<ul class="submenu">
+<li><a href="#">Team</a></li>
+<li><a href="#">History</a></li>
+</ul>
+</div>
+
+<div class="menu-item">
+<a href="#">Services</a>
+<ul class="submenu">
+<li><a href="#">Consulting</a></li>
+<li><a href="#">Development</a></li>
+</ul>
+</div>
+
+<div class="menu-item">
+<a href="#">Contact</a>
+</div>
+
+</nav>
+
+<script>
+
+let items = document.querySelectorAll(".menu-item");
+
+items.forEach(function(item){
+
+    item.onmouseover = function(){
+        let submenu = item.querySelector(".submenu");
+        if(submenu){
+            submenu.style.display = "block";
+        }
+    }
+
+    item.onmouseout = function(){
+        let submenu = item.querySelector(".submenu");
+        if(submenu){
+            submenu.style.display = "none";
+        }
+    }
+
+});
+
+</script>
+
+</body>
+</html>

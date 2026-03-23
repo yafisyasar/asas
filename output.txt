@@ -1,0 +1,2 @@
+Hello!
+This text is written using Node.js fs module.

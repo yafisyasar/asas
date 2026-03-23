@@ -22,4 +22,4 @@ server.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
 });
 
-//http://localhost:4000/?name=Dhanya&age=45&dept=CS&IT
+// search http://localhost:4000/?name=Yafis&age=19&dept=CS&IT

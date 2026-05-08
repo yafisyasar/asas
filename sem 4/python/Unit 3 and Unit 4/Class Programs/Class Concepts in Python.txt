@@ -1,0 +1,242 @@
+Basic Syntax of Class in Python
+
+/////////////////////////////
+class ClassName:
+    def __init__(self, value):
+        self.value = value
+
+    def display(self):
+        print(self.value)
+//////////////////////////////
+Without self, Python wouldn't know which object's data you're referring to.
+/////////////////////////// EXAMPLE 1
+class Student:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def display(self):
+        print(self.name, self.age)
+
+# Create object
+s1 = Student("Anu", 21)
+
+# Call method
+s1.display()
+///////////////////////////////// EXAMPLE 2
+
+class Car:
+    def __init__(self, brand, speed):
+        self.brand = brand
+        self.speed = speed
+
+    def drive(self):
+        print(self.brand, "is moving at", self.speed, "km/h")
+
+c1 = Car("Toyota", 80)
+c1.drive()
+
+////////////////////////////EXAMPLE 3
+class Bank:
+    def __init__(self):
+        self.__balance = 0  
+
+    def deposit(self, amount):
+        self.__balance += amount
+
+    def show(self):
+        print(self.__balance)
+
+b = Bank()
+b.deposit(500)
+b.show()
+//////////////////////////////////EXAMPLE 4
+
+class Test:
+    x = 10   # class variable
+
+    def __init__(self, y):
+        self.y = y   # instance variable
+
+t1 = Test(5)
+t2 = Test(7)
+
+t1.x = 100   # creates instance variable for t1
+
+print(t1.x)  # 100
+print(t2.x)  # 10
+
+//////////////////////////////////////INHERITANCE
+//////////SINGLE LEVEL
+class Parent:
+    def show(self):
+        print("Parent class")
+
+class Child(Parent):
+    def display(self):
+        print("Child class")
+
+c = Child()
+c.show()
+c.display()
+
+///////////MULTILEVEL
+class Grandparent:
+    def g(self):
+        print("Grandparent")
+
+class Parent(Grandparent):
+    def p(self):
+        print("Parent")
+
+class Child(Parent):
+    def c(self):
+        print("Child")
+
+obj = Child()
+obj.g()
+obj.p()
+obj.c()
+
+///////////HIERARCHICAL
+class Vehicle:
+    def start(self):
+        print("Vehicle started")
+
+class Car(Vehicle):
+    def drive(self):
+        print("Car is driving")
+
+class Bike(Vehicle):
+    def ride(self):
+        print("Bike is riding")
+
+# Objects
+c = Car()
+b = Bike()
+
+c.start()
+c.drive()
+
+b.start()
+b.ride()
+//////////////////////MULTIPLE INHERITANCE
+class Camera:
+    def take_photo(self):
+        print("Taking a photo")
+
+class MusicPlayer:
+    def play_music(self):
+        print("Playing music")
+
+class Smartphone(Camera, MusicPlayer):
+    def make_call(self):
+        print("Making a call")
+
+# Create object
+phone = Smartphone()
+
+phone.take_photo()
+phone.play_music()
+phone.make_call()
+
+///////////////////////////////Method Resolution Order(MRO)
+class A:
+    def show(self):
+        print("Class A")
+
+class B:
+    def show(self):
+        print("Class B")
+
+class C(A, B):
+    pass
+
+obj = C()
+obj.show()
+
+//////////////////////HYBRID INHERITANCE
+class A:
+    def methodA(self):
+        print("Class A")
+
+class B(A):   # multilevel part
+    def methodB(self):
+        print("Class B")
+
+class C(A):   # hierarchical part
+    def methodC(self):
+        print("Class C")
+
+class D(B, C):   # multiple inheritance
+    def methodD(self):
+        print("Class D")
+
+obj = D()
+
+obj.methodA()
+obj.methodB()
+obj.methodC()
+obj.methodD()
+
+///////////METHOD OVERLOADING IN PYTHON
+Method overloading means:
+same method name, different parameters
+But in Python:
+
+True overloading (like Java) is not directly supported
+You achieve it using:
+default arguments
+variable arguments (*args)
+
+///////////////////METHOD 1 using default arguments
+class Math:
+    def add(self, a, b=0, c=0):
+        return a + b + c
+
+m = Math()
+
+print(m.add(5))        # 5
+print(m.add(5, 10))    # 15
+print(m.add(5, 10, 15)) # 30
+
+///////////////////METHOD 2 USING args*
+class Math:
+    def add(self, *nums):
+        return sum(nums)
+
+m = Math()
+
+print(m.add(2, 3))        # 5
+print(m.add(2, 3, 4, 5))  # 14
+//////////////////////////////////
+
+/////////////////////////////METHOD OVERRIDING IN PYTHON
+
+Method overriding means:
+child class provides a new implementation of a method already defined in parent class
+
+////////////////////EXAMPLE 1
+class Parent:
+    def show(self):
+        print("This is parent class")
+
+class Child(Parent):
+    def show(self):
+        print("This is child class")
+
+obj = Child()
+obj.show()
+
+//////////////////////EXAMPLE 2
+class Parent:
+    def show(self):
+        print("Parent class")
+
+class Child(Parent):
+    def show(self):
+        super().show()
+        print("Child class")
+
+obj = Child()
+obj.show()

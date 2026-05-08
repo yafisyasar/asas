@@ -1,0 +1,84 @@
+from google.colab import drive
+drive.mount('/content/drive')
+
+
+import pandas as pd
+newdata=pd.read_csv('/content/sample_data/Monthly_Expenses.csv')
+
+newdata
+
+
+
+newdata.head(2)
+newdata.tail()
+newdata.head(10)
+newdata.tail(7)
+newdata.info()
+
+
+myexp=newdata.Expenses
+myexp
+
+newdata.columns
+
+newdata = newdata.rename(columns={'Month ': 'Month'})
+
+m=newdata.Month
+m
+
+myexp.mean()
+myexp.median()
+myexp.mode()
+myexp.min()
+myexp.max()
+myexp.std()
+myexp.var()
+myexp.quantile(0.25)//Returns the 25th percentile (Q1).Tells you the value below which 25% of the data falls.
+//25%, 50%, 75%: quantiles (Q1, median, Q3)
+myexp.describe()
+
+
+#In the above code the keys of the dict become the DataFrame columns:The default action of dataframe is like that.
+data = {'col_1': [3, 2, 1, 0], 'col_2': ['a', 'b', 'c', 'd']}
+pd.DataFrame.from_dict(data)
+////////////////////////////////
+pd.DataFrame.from_dict(data) converts the dictionary into a table.
+Keys ('col_1', 'col_2') become column names.
+Lists become column values.
+Index (0–3) is automatically assigned.
+///////////////////////////////////////////////////////////////
+
+#Specify orient='index' to create the DataFrame using dictionary keys as rows:
+
+data = {'row_1': [3, 2, 1, 0], 'row_2': ['a', 'b', 'c', 'd']}
+pd.DataFrame.from_dict(data, orient='index')
+
+/////////////////////////////////////////////////////////////
+'row_1' and 'row_2' become row labels (index).
+The list values are spread across columns.
+Since you didn’t specify column names, Pandas assigns default column labels: 0, 1, 2, 3.
+//////////////////////////////////////////////////////////
+
+#When using the ‘index’ orientation, the column names can be specified manually:
+data = {'row_1': [3, 2, 1, 0], 'row_2': ['a', 'b', 'c', 'd']}
+pd.DataFrame.from_dict(data, orient='index', columns=['A', 'B', 'C', 'D'])
+///////////////////////////////////////////////////////
+'row_1' and 'row_2' become row labels (index).
+The list values are spread across columns.
+Column names are: 'A', 'B', 'C', 'D'
+/////////////////////////////////////////////////////////
+data = {'Student Name': ['John', 'Emma', 'Mike'],
+
+     'Age': [25, 28, 32],
+
+     'Location': ['New York', 'London', 'Paris']}
+
+# Convert dictionary to DataFrame
+
+df = pd.DataFrame.from_dict(data)
+
+# Print the DataFrame
+
+print(df)
+
+

@@ -1,0 +1,281 @@
+ 
+
+
+#Anonymous functions
+#Typically used when you need a function for a short period of time and don’t want to formally define it with def.
+
+///////////////////////////////////////////////////////
+#with one argument
+
+square=lambda x: x*x
+
+n=int(input("enter a number"))
+print("Square of ", n,"is:", square(n))#fn Cal
+
+///////////////////////////////////
+#With multiple arguments
+
+
+sum=lambda x,y: x+y
+
+n1=int(input("enter first number"))
+n2=int(input("enter second number"))
+print("Sum of ", n1,"and",n2,"is:", sum(n1,n2))#fn Call
+
+/////////////////////////////////
+#to find sum of 3 numbers
+add=lambda a,b,c: print(a+b+c)
+add(4, 5, 1)
+
+//////////////////////////////////
+#Find Biggest element(Nested If else in lambda)
+find_max=lambda a,b,c:a if a>b and a>c else (b if b>a and b>c else c)
+print(find_max(6,15,1))
+
+///////////////////////////////////////
+
+//Usage along with map(),reduce(),filter(),sort(),zip() - inbuilt functions
+//map() is a built-in function.  It provides a concise and efficient way to perform transformations 
+//on collections of data without explicitly writing a for loop.
+//Syntax : map(fun, iter)
+//fun : It is a function to which map passes each element of given iterable.
+//iter : It is a iterable which is to be mapped.
+
+//You can pass one or more iterable to the map() function.
+
+//The returned value from map() (map object) then can be passed to functions like list() (to create a list), set() (to create a set) .
+
+////////////////////////////////////////////////using map
+
+#Using Lambda inside map
+
+nums = [1, 2, 3, 4, 5]
+square = list(map(lambda x: x**2, nums))
+print(square)
+#Output: [1, 4, 9, 16, 25]
+
+/////////////////////////////////////////////
+#Using Lambda inside map
+oldlist=[2,45,67,9,10]
+print(oldlist)
+newlist=list(map(lambda x:x+2,oldlist))
+print(newlist)
+
+//////////////////////////////////////////////
+
+#without using lambda
+def square(x):
+  return x ** 2
+
+numbers = [1, 2, 3, 4, 5]
+result = map(square, numbers)
+
+print(list(result))
+
+/////////////////////////////////////////////////
+
+#  if-else statement can be used
+
+x=lambda x: True if x % 2 == 0 else False
+print(x(11))
+
+///////////////////////////////////////////////////
+
+#Convert all elements of list in uppercase
+people = ["lokesh", "bob", "tom", "developer"]
+up = list(map(lambda x: x.upper(), people))
+print(up)
+Output: ['LOKESH', 'BOB', 'TOM', 'DEVELOPER']
+
+//////////////////////////////////////////////
+
+#reduce - The reduce() function starts with the first two elements of an iterable, applies the function to them, then uses the result with the next element. 
+#This process continues until all elements are processed, resulting in a single cumulative value.
+
+import functools
+
+oldlist=[2,45,67,9,10]
+prod=functools.reduce(lambda x,y:x*y,oldlist)
+print(oldlist)
+print(prod)
+.............................................................................................
+# Application of reduce() With an Initializer
+from functools import reduce
+
+numbers = [1, 2, 3, 4]
+
+sum_result = reduce(lambda x, y: x + y, numbers, 0)
+
+print(sum_result) 
+
+# the initializer 0 ensures the function handles empty lists correctly
+.............................................................................................
+#Finding the Maximum Element in a List
+
+from functools import reduce
+
+numbers = [4, 6, 8, 2, 9, 3]
+
+max_result = reduce(lambda x, y: x if x > y else y, numbers)
+
+print(max_result) 
+
+..........................................................................................
+
+from functools import reduce
+
+seq=[2,3,4,5,6]
+multiply=reduce(lambda a,b:a*b,seq)
+print(multiply)
+...........................................................................................
+
+#Using reduce() with Operator Functions(without lambda) - Python’s operator module provides built-in functions, which are useful with reduce() to create cleaner code
+
+from functools import reduce
+
+import operator
+
+numbers = [1, 2, 3, 4, 5]
+
+sum_result = reduce(operator.add, numbers)
+
+print(sum_result)  
+
+.........................................................................................
+from functools import reduce
+
+import operator
+
+numbers = [1, 2, 3, 4, 5]
+
+product_result = reduce(operator.mul, numbers)
+
+print(product_result) 
+
+........................................................................................
+# Comparison  - map(),reduce(), filter()
+
+
+......................................................................................
+#Filter
+#The Python filter() function is a built-in function that allows you to filter 
+#a sequence (e.g., a list, tuple, or set) based on a given condition.
+#The function takes two arguments – a function and a sequence – and returns an iterator 
+#containing elements from the original sequence for which the function returns True.
+
+oldlist=[2,45,67,9,10]
+newlist=list(filter(lambda x:(x%2!=0),oldlist))
+print(newlist)
+
+................................................................................
+
+seq = [0, 1, 2, 3, 4, 5]
+
+# result contains odd numbers of the list
+result = filter(lambda x: x % 2 !=0, seq)
+print(list(result))
+
+# result contains even numbers of the list
+result = filter(lambda x: x % 2 == 0, seq)
+print(list(result))
+
+............................................................................
+
+a = [1, 2, 3, 4, 5, 6]
+
+# First, filter even numbers
+b = filter(lambda x: x % 2 == 0, a)
+
+# Then, double the filtered numbers
+c = map(lambda x: x * 2, b)
+
+print(list(c))
+
+.............................................................................
+
+ages = [12, 17, 21, 30, 15]
+adults = list(filter(lambda age: age >= 18, ages))
+print(adults)
+
+............................................................................
+
+numbers = [-3, -1, 0, 2, 5]
+print(list(filter(lambda x: x > 0, numbers)))
+
+.............................................................................
+
+values = ["apple", "", "banana", "", "cherry"]
+cleaned = list(filter(None, values))
+print(cleaned)  
+# Output: ['apple', 'banana', 'cherry']
+
+.............................................................................
+
+scores = {"Alice": 85, "Bob": 42, "Cleo": 91}
+passed = dict(filter(lambda item: item[1] >= 60, scores.items()))
+print(passed)  # Output: {'Alice': 85, 'Cleo': 91}
+.............................................................................
+map(): Transforms each element in the iterable based on the lambda expression
+filter(): Selects elements that meet a condition.
+reduce(): Combines elements into a single cumulative result.
+........................................................................
+
+#zip() - The `zip` function in Python is a built-in function that allows you to aggregate elements from multiple iterables into a single iterable. It takes two or more iterables as input and returns an iterator that produces tuples containing elements from all the input iterables.
+Useful in student grades, employee salaries, product names & prices, etc.
+Turning database columns & row values into dictionaries.
+
+fruits = ['apple', 'banana', 'cherry']
+colors = ['red', 'yellow', 'pink']
+
+for fruit, color in zip(fruits, colors):
+    print(fruit, color)
+
+Output:
+apple red banana yellow cherry pink
+
+................................................................................
+languages = ['Java', 'Python', 'JavaScript']
+versions = [14, 3, 6]
+
+result = zip(languages, versions)
+print(list(result))
+
+..............................................................................
+
+s1 = {2, 3, 1}
+s2 = {"b", "a", "c"}
+print(list(zip(s1, s2)))
+
+.....................................................................    
+
+zipped = zip()
+print(zipped)
+print(list(zipped))
+
+................................................................
+
+
+a = [1, 2, 3]
+zipped = zip(a)
+print(list(zipped))
+
+.........................................................
+
+integers = [1, 2, 3]
+letters = ["a", "b", "c"]
+floats = [4.0, 5.0, 6.0]
+zipped = zip(integers, letters, floats)  # Three input iterables
+print(list(zipped))
+
+.................................................
+
+print(list(zip(range(5), range(100))))
+
+..............................................
+
+letters = ["b", "a", "d", "c"]
+numbers = [2, 4, 3, 1]
+data1 = list(zip(letters, numbers))
+print(data1)
+
+

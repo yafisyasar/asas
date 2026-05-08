@@ -17,3 +17,75 @@
    d. Remove duplicates from the list
    e. Find the average of the numbers in a list.(use sum and len functions)
    f. use functions pop, remove, del and clear in the list
+7.Do the set of operations in tuple 
+a)Write a Python program to create a tuple with 5 elements and print it.
+b)Write a program to access the 3rd element of a tuple.
+c)Write a program to find the length of a tuple.
+d)Write a program to concatenate two tuples.
+e)Write a program to repeat a tuple 3 times.
+f)Write a program to check whether an element exists in a tuple.
+g)Write a program to count the number of occurrences of an element in a tuple.
+h)Write a program to slice a tuple and print elements from index 2 to 5.
+i)Write a program to create a tuple with a single element.
+8.Write a program to create a nested tuple and access its elements.
+9.Write a program to sort a tuple.
+10.Perform the below set operations
+a)Write a program to perform union of two sets.
+b)Write a program to perform intersection of two sets.
+c)Write a program to perform difference between two sets.
+d)Write a program to perform symmetric difference between two sets.
+e)Write a program to perform intersection update of two sets.
+11.Write a program to perform the following
+a)Write a Python program to create a set with 5 elements and print it.
+b)Write a program to add an element to a set.
+c)Write a program to remove an element from a set.
+d)Write a program to check whether an element exists in a set.
+e)Write a program to find the length of a set.
+f)Write a program to clear all elements from a set.
+12.Perform the below string operations
+a)Write a Python program to create a string and print it.
+b)Write a program to find the length of a string.
+c)Write a program to access the first and last character of a string.
+d)Write a program to concatenate two strings.
+e)Write a program to repeat a string multiple times.
+f)Write a program to check whether a character is present in a string.
+g)Write a program to check whether a string is a palindrome.
+h)Write a program to count the number of words in a string.
+i)Write a program to remove spaces from a string.
+j)Write a program to count the number of vowels, consonants, uppercase, lowercase and special characters in a string.
+13.Perform the following string functions
+a)Write a program to demonstrate upper(), lower(), and title() methods.
+b)Write a program to demonstrate strip(), lstrip(), and rstrip().
+c)Write a program to demonstrate replace() method.
+d)Write a program to demonstrate split() and join() methods.
+e)Write a program to count occurrences of a substring using count().
+f)Write a program to find the index of a substring using find().
+14.Perform the following dictionary functions
+a)Write a program to demonstrate get() method.
+b)Write a program to demonstrate keys(), values(), and items().
+c)Write a program to demonstrate pop() and popitem().
+d)Write a program to demonstrate update() and add() method.
+e)Write a program to demonstrate clear() method.
+f)Write a program to copy a dictionary using copy().
+15.Perform the following dictionary operations
+a)Write a Python program to create a dictionary with 5 key-value pairs.
+b)Write a program to access a value using its key.
+c)Write a program to add a new key-value pair to a dictionary.
+d)Write a program to update the value of an existing key.
+e)Write a program to delete a key-value pair.
+f)Write a program to find the length of a dictionary.
+g)Write a program to check whether a key exists in a dictionary.
+h)Write a program to merge two dictionaries.
+16.Perform the following file operations
+a)To write to a file
+b)To read from a file
+c)To append to a file
+17.Create a class and perform the following inheritance
+a)Single Inheritance
+b)Multilevel Inheritance
+c)Multiple Inheritance
+d)Hierarchical Inheritance
+e)Hybrid Inheritance
+18.Write a program to show method overloading in Python
+19.Write a program to show method overriding in Python
+

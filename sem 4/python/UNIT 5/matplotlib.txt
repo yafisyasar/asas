@@ -1,0 +1,25 @@
+import matplotlib.pyplot as plt
+plt.hist(myexp)
+plt.title("Histogram",fontsize=15)
+plt.xlabel("Expenses")
+plt.ylabel("Frequency")
+plt.show()
+////////////////
+plt.hist(myexp) → groups your data into bins (ranges) and shows how many values fall in each range
+////////////////
+plt.boxplot(myexp)
+plt.title("Boxplot",fontsize=15)
+plt.xlabel("Expenses")
+plt.ylabel("Frequency")
+plt.show()
+
+
+second=pd.read_excel('/content/sample_data/Marks1.xls')
+
+df = pd.DataFrame(second)
+df
+
+s=df.iloc[[2,4,6]]
+s
+/////////////////////
+for row selection in a Pandas DataFrame. Selects rows by integer position (index-based selection).

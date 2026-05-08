@@ -1,0 +1,48 @@
+NumPy, short for Numerical Python, is a fundamental library in Python for numerical computations. One of its prominent modules, NumPy Random, provides a wide array of tools for generating random numbers and arrays with diverse distributions. 
+
+
+To generate random numbers:
+
+1. random.rand() generates random values between 0 and 1.
+
+from numpy import random
+x = random.rand()
+print(x)
+
+
+To generate a 2x3 array of random values, you can specify the shape.
+
+from numpy import random
+random_array = random.rand(2, 3)
+print(random_array)
+
+
+random.randint() generates random integers within a specified range.
+
+To generate a random integer in the range of 1 to 10:
+
+from numpy import random
+random_int = random.randint(1, 11)
+print(random_int)
+
+The shape of the array can be specified using the size parameter.
+
+To generate a 1-D array containing 4 random integers from 0 to 50:(random.randint(50) → picks integers from 0 up to 49 (50 is exclusive))
+
+from numpy import random
+x=random.randint(50, size=(4))
+print(x)
+
+
+To generate a 2-D array with 3 rows containing 5 random integers each from 0 to 50:
+
+from numpy import random
+x = random.randint(50, size=(3, 5))
+print(x)
+
+
+random.choice() is used to generate a random sample(number) from the given 1-D array.
+
+from numpy import random
+random_num = random.choice([1, 2, 3, 4, 5])
+print(random_num)

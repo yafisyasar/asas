@@ -1,0 +1,295 @@
+Phase 1: Environment Setup & Project Initialization
+Follow these steps in order to prepare your VS Code environment and generate the project backbone (myproject).
+Step 1: Open Workspace and Set Execution Policy
+Open VS Code, select File > Open Folder, and create or select your workspace folder. Open your terminal (Ctrl + ~) and run this command to allow script execution for your current session:
+PowerShell
+1 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
+Step 2: Create and Activate the Virtual Environment and update pip
+Run the following commands to create a virtual environment named venv and activate it:
+PowerShell
+2 python -m venv venv
+3 .\venv\Scripts\Activate
+(You will notice a (venv) prefix appear on your terminal line, confirming you are safely isolated).
+4 python -m pip install --upgrade pip
+Ensures pip is updated to the latest version to avoid installation headaches.
+
+Step 3: Install Django and Start the Project
+Install Django via pip and initialize myproject directly at your workspace root:
+PowerShell
+5 pip install django
+6 django-admin startproject myproject .
+(Remember, the . at the end is crucial to keep your project files clean and unnested).
+
+Phase 2: Building the Dashboard App (Root App)
+This app will sit at the absolute root (/) and handle the central landing page.
+Step 4: Create the Dashboard App Scaffold
+Run this command in the terminal:
+PowerShell
+7 python manage.py startapp dashboardapp
+
+Step 5: Write the Dashboard View (dashboardapp/views.py)
+Open dashboardapp/views.py and paste this code. It will pull counts from the other two apps (which we will create right after this):
+Python
+
+from django.shortcuts import render
+# We import these models now; they will become active once the other apps are built
+from taskapp.models import Task
+from profileapp.models import UserProfile
+
+def home_view(request):
+    total_tasks = Task.objects.count()
+    total_profiles = UserProfile.objects.count()
+
+    context = {
+        'total_tasks': total_tasks,
+        'total_profiles': total_profiles,
+    }
+    return render(request, 'dashboardapp/home.html', context)
+Step 6: Create the Dashboard Template UI
+Create the following folders and file path exactly: dashboardapp/templates/dashboardapp/home.html. Paste this HTML structure into it:
+HTML
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Global Dashboard</title>
+</head>
+<body>
+<h1>Welcome to Your Workspace Central Hub</h1>
+<p>This is the root landing page managed by <code>dashboardapp</code>.</p>
+<hr>
+<h3>System Overview</h3>
+<ul>
+<li><strong>Total Tasks Tracked:</strong>{{ total_tasks }}</li>
+<li><strong>Total User Profiles:</strong>{{ total_profiles }}</li>
+</ul>
+<hr>
+<h3>Applications Navigation</h3>
+<ul>
+<li><a href="/task/">Go to Task Manager App</a></li>
+<li><a href="/profile/">Go to User Profiles App</a></li>
+</ul>
+</body>
+</html>
+
+Step 7: Create Dashboard App Routing (dashboardapp/urls.py)
+Create a new file named dashboardapp/urls.py and add this code to hook up your landing view:
+Python
+
+from django.urls import path
+from . import views
+
+urlpatterns = [
+path('', views.home_view, name='home'),
+]
+
+Phase 3: Building the Profile App
+Next, we generate your profile application to manage usernames and bios.
+Step 8: Create the Profile App Scaffold
+Run this command in the terminal:
+PowerShell
+
+python manage.py startapp profileapp
+
+Step 9: Define the Profile Model (profileapp/models.py)
+Open profileapp/models.py and create your data schema:
+Python
+
+from django.db import models
+
+class UserProfile(models.Model):
+    username = models.CharField(max_length=100)
+    bio = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.username
+
+Step 10: Write the Profile View (profileapp/views.py)
+Open profileapp/views.py and implement the form processing and data fetching logic:
+Python
+
+from django.shortcuts import render, redirect
+from .models import UserProfile
+
+def profile_view(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        bio = request.POST.get('bio')
+        if username:
+		UserProfile.objects.create(username=username, bio=bio)
+        	return redirect('profile_view')
+
+    profiles = UserProfile.objects.all()
+    return render(request, 'profileapp/profile.html', {'profiles': profiles})
+
+Step 11: Create the Profile Template UI
+Create this path: profileapp/templates/profileapp/profile.html. Open the file and write your profile form layout:
+HTML
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>User Profiles</title>
+</head>
+<body>
+<h2>Profile Workspace</h2>
+<form method="POST">
+        {% csrf_token %}
+<input type="text" name="username" placeholder="Username" required><br><br>
+<textarea name="bio" placeholder="Tell us about yourself..."></textarea><br><br>
+<button type="submit">Save Profile</button>
+</form>
+<h3>All Profiles</h3>
+<ul>
+        {% for profile in profiles %}
+<li><strong>{{ profile.username }}</strong>: {{ profile.bio}}</li>
+        {% empty %}
+<li>No profiles created yet.</li>
+        {% endfor %}
+</ul>
+<br>
+<a href="/">Back to Dashboard</a>
+</body>
+</html>
+
+Step 12: Create Profile App Routing (profileapp/urls.py)
+Create a new file named profileapp/urls.py and map the view:
+Python
+
+from django.urls import path
+from . import views
+
+urlpatterns = [
+path('', views.profile_view, name='profile_view'),
+]
+
+Phase 4: Building the Task App
+Finally, we build out the task management system.
+Step 13: Create the Task App Scaffold
+Run this command in your terminal:
+PowerShell
+
+python manage.py startapp taskapp
+
+Step 14: Define the Task Model (taskapp/models.py)
+Open taskapp/models.py and define your task table structure:
+Python
+
+from django.db import models
+
+class Task(models.Model):
+    title = models.CharField(max_length=200)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
+Step 15: Write the Task View (taskapp/views.py)
+
+Open taskapp/views.py and write your controller logic:
+Python
+
+from django.shortcuts import render, redirect
+from .models import Task
+
+def task_list(request):
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        if title:
+            Task.objects.create(title=title)
+            return redirect('task_list')
+
+    tasks = Task.objects.all().order_by('-created_at')
+    return render(request, 'taskapp/task_list.html', {'tasks': tasks})
+
+Step 16: Create the Task Template UI
+Create this path: taskapp/templates/taskapp/task_list.html. Open the file and write the task manager form and list display:
+HTML
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Task Manager</title>
+</head>
+<body>
+<h2>Task Workspace</h2>
+<form method="POST">
+        {% csrf_token %}
+<input type="text" name="title" placeholder="Enter a new task..." required>
+<button type="submit">Add Task</button>
+</form>
+<h3>Current Tasks</h3>
+<ul>
+        {% for task in tasks %}
+<li>{{ task.title }} <small>({{ task.created_at|date:"M d, Y H:i" }})</small></li>
+        {% empty %}
+<li>No tasks added yet!</li>
+        {% endfor %}
+</ul>
+<br>
+<a href="/">Back to Dashboard</a>
+</body>
+</html>
+
+Step 17: Create Task App Routing (taskapp/urls.py)
+Create a file named taskapp/urls.py and set up its pathing:
+Python
+
+from django.urls import path
+from . import views
+
+urlpatterns = [
+path('', views.task_list, name='task_list'),
+]
+
+Phase 5: Global Connection, Database Syncing & Launch
+Now that all three individual apps are written, we register them inside the master settings, map their main URLs, sync our database tables, and turn on the server.
+Step 18: Register All Apps (myproject/settings.py)
+Open myproject/settings.py, scroll down to INSTALLED_APPS, and register your three new creations at the bottom of the list:
+Python
+
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'dashboardapp',  # Registered 1st
+    'profileapp',    # Registered 2nd
+    'taskapp',       # Registered 3rd
+]
+
+Step 19: Wire the Master Project URLs (myproject/urls.py)
+Open myproject/urls.py and configure your global routing to give each app its proper prefix:
+Python
+
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+path('admin/', admin.site.urls),
+path('', include('dashboardapp.urls')),       # Dashboard handles root '/'
+path('profile/', include('profileapp.urls')), # Profiles live on '/profile/'
+path('task/', include('taskapp.urls')),       # Tasks live on '/task/'
+]
+
+Step 20: Run Migrations to Build Database Tables
+Run these two commands in your terminal to process the database models for your profile and task apps into your SQLite database file:
+PowerShell
+
+python manage.py makemigrations
+python manage.py migrate
+
+Step 21: Run the Development Server
+Fire up your ecosystem using:
+PowerShell
+
+python manage.py runserver
+
+Open up your browser and visit [http://127.0.0.1:8000/](http://127.0.0.1:8000/). You can browse through your apps, add data to them, and watch your dashboard track it all in real-time!
+
+

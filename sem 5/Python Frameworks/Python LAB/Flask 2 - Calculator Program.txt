@@ -1,0 +1,93 @@
+#To create a Flask application that performs basic arithmetic operations using an HTML form.
+#####app.py
+
+from flask import Flask, render_template, request
+
+app = Flask(__name__)
+
+
+@app.route('/')
+def home():
+    return render_template('calculator.html')
+
+
+@app.route('/calculate', methods=['POST'])
+def calculate():
+
+    num1 = float(request.form['num1'])
+    num2 = float(request.form['num2'])
+    operation = request.form['operation']
+
+    if operation == 'add':
+        result = num1 + num2
+
+    elif operation == 'subtract':
+        result = num1 - num2
+
+    elif operation == 'multiply':
+        result = num1 * num2
+
+    elif operation == 'divide':
+        if num2 == 0:
+            result = "Cannot divide by zero"
+        else:
+            result = num1 / num2
+
+    return render_template(
+        'calculator.html',
+        result=result
+    )
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+
+/////////////////////////////////////////////////////
+
+templates/calculator.html
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Calculator</title>
+</head>
+
+<body>
+
+    <h1>Simple Calculator</h1>
+
+    <form action="/calculate" method="POST">
+
+        <label>Enter Number 1:</label>
+        <input type="number" step="any" name="num1" required>
+
+        <br><br>
+
+        <label>Enter Number 2:</label>
+        <input type="number" step="any" name="num2" required>
+
+        <br><br>
+
+        <label>Select Operation:</label>
+
+        <select name="operation">
+            <option value="add">Addition</option>
+            <option value="subtract">Subtraction</option>
+            <option value="multiply">Multiplication</option>
+            <option value="divide">Division</option>
+        </select>
+
+        <br><br>
+
+        <button type="submit">Calculate</button>
+
+    </form>
+
+    {% if result is defined %}
+        <h2>Result: {{ result }}</h2>
+    {% endif %}
+
+</body>
+</html>
+

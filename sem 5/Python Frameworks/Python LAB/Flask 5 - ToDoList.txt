@@ -1,0 +1,170 @@
+#To create a Flask-based To-Do List application using SQLite.
+
+#app.py
+
+from flask import Flask, render_template, request, redirect
+import sqlite3
+
+app = Flask(__name__)
+
+
+# Create database and table
+def init_db():
+
+    conn = sqlite3.connect('todo.db')
+
+    conn.execute('''
+        CREATE TABLE IF NOT EXISTS tasks (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            task TEXT NOT NULL,
+            completed INTEGER DEFAULT 0
+        )
+    ''')
+
+    conn.commit()
+    conn.close()
+
+
+# Display tasks
+@app.route('/')
+def home():
+
+    conn = sqlite3.connect('todo.db')
+
+    cursor = conn.execute(
+        'SELECT * FROM tasks'
+    )
+
+    tasks = cursor.fetchall()
+
+    conn.close()
+
+    return render_template(
+        'todo.html',
+        tasks=tasks
+    )
+
+
+# Add task
+@app.route('/add', methods=['POST'])
+def add_task():
+
+    task = request.form['task']
+
+    conn = sqlite3.connect('todo.db')
+
+    conn.execute(
+        'INSERT INTO tasks (task) VALUES (?)',
+        (task,)
+    )
+
+    conn.commit()
+    conn.close()
+
+    return redirect('/')
+
+
+# Mark task as completed
+@app.route('/complete/<int:id>')
+def complete_task(id):
+
+    conn = sqlite3.connect('todo.db')
+
+    conn.execute(
+        'UPDATE tasks SET completed = 1 WHERE id = ?',
+        (id,)
+    )
+
+    conn.commit()
+    conn.close()
+
+    return redirect('/')
+
+
+# Delete task
+@app.route('/delete/<int:id>')
+def delete_task(id):
+
+    conn = sqlite3.connect('todo.db')
+
+    conn.execute(
+        'DELETE FROM tasks WHERE id = ?',
+        (id,)
+    )
+
+    conn.commit()
+    conn.close()
+
+    return redirect('/')
+
+
+if __name__ == '__main__':
+    init_db()
+    app.run(debug=True)
+
+////////////////////////////////////////////////////////////////
+
+templates/todo.html
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>To-Do List</title>
+</head>
+
+<body>
+
+    <h1>To-Do List</h1>
+
+    <form action="/add" method="POST">
+
+        <input
+            type="text"
+            name="task"
+            placeholder="Enter a task"
+            required
+        >
+
+        <button type="submit">Add Task</button>
+
+    </form>
+
+    <hr>
+
+    <h2>Tasks</h2>
+
+    <ul>
+
+        {% for task in tasks %}
+
+        <li>
+
+            {% if task[2] == 1 %}
+
+                <s>{{ task[1] }}</s>
+
+            {% else %}
+
+                {{ task[1] }}
+
+                <a href="/complete/{{ task[0] }}">
+                    Complete
+                </a>
+
+            {% endif %}
+
+            <a href="/delete/{{ task[0] }}">
+                Delete
+            </a>
+
+        </li>
+
+        {% endfor %}
+
+    </ul>
+
+</body>
+</html>
+
+//////////////////////////////////////////////////////
+

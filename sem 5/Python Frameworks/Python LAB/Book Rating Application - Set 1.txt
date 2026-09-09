@@ -1,0 +1,141 @@
+1 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
+2 python -m venv venv
+3 .\venv\Scripts\Activate
+
+4 django-admin startproject library_project .
+5 python manage.py startapp books
+//////////////////////////
+
+Step 1: Register the App (library_project/settings.py)
+Open library_project/settings.py and register the books app in the INSTALLED_APPS list:
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'books',  # Add your application here
+]
+
+
+Step 2: Define the Model (books/models.py)
+We will create a database table to store book entries. Each book will have a title and a rating.
+
+from django.db import models
+
+class Book(models.Model):
+    title = models.CharField(max_length=200)
+    rating = models.IntegerField(default=5)
+
+    def __str__(self):
+        return f"{self.title} - {self.rating}/5 stars"
+
+
+Step 3: Create the Form (books/forms.py)
+Create a new file named forms.py inside the books/ folder. This form handles data validation (checking if rating is between 1 and 5):
+Django uses a strict naming rule for validation functions: clean_<fieldname>(). Because this function is named exactly clean_rating, Django knows it must automatically run this code the moment a user clicks the "Submit" button on your web page.
+When a user submits a form, Django first runs basic checks (e.g., making sure they actually typed a number and not random text like "hello"). If that basic check passes, it puts the value into a safe Python dictionary called cleaned_data. This line pulls that number out so we can inspect it.
+
+from django import forms
+from .models import Book
+
+class BookForm(forms.ModelForm):
+    class Meta:
+        model = Book
+        fields = ['title', 'rating']
+
+    # Validation check: Ensure the rating is valid
+    def clean_rating(self):
+        rating = self.cleaned_data.get('rating')
+        if rating < 1 or rating > 5:
+            raise forms.ValidationError("Rating must be between 1 and 5 stars!")
+        return rating
+
+
+
+Step 4: Write the Controller Logic (books/views.py)
+Open books/views.py and implement the view that lists existing books and processes the creation form:
+
+from django.shortcuts import render, redirect
+from .models import Book
+from .forms import BookForm
+
+def book_list(request):
+    if request.method == 'POST':
+        form = BookForm(request.POST)
+        if form.is_valid():
+            form.save()  # Saves validated book data directly to db.sqlite3
+            return redirect('book_list')
+    else:
+        form = BookForm()
+
+    # Retrieve all books from database
+    books = Book.objects.all()
+    return render(request, 'books/book_list.html', {'books': books, 'form': form})
+
+Step 5: Configure the URL Routing
+Create App Routing (books/urls.py)
+Create books/urls.py and paste:
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.book_list, name='book_list'),
+]
+
+
+Connect to Global Routing (library_project/urls.py)
+Open library_project/urls.py and link the app's URLs:
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('books.urls')),  # Direct root domain to books app
+]
+
+Step 6: Create the Template UI (books/templates/books/book_list.html)
+Create the folders templates/books/ inside the books directory, then create a file named book_list.html inside it:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Book Tracker</title>
+</head>
+<body style="font-family: Arial, sans-serif; margin: 40px;">
+
+    <h2>📚 Book Rating</h2>
+
+    <!-- Form for adding a book -->
+    <form method="POST" style="margin-bottom: 30px;">
+        {% csrf_token %}
+        
+        <!-- Render validation errors and fields dynamically -->
+        {{ form.as_p }}
+        
+        <button type="submit">Add Book</button>
+    </form>
+
+    <hr>
+
+    <h3>Books and their Rating</h3>
+    <ul>
+        {% for book in books %}
+            <li><strong>{{ book.title }}</strong> — Rating: {{ book.rating }}/5 stars</li>
+        {% empty %}
+            <li>No books added yet. Use the form above to add one!</li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>
+
+Run the System
+Run these commands in your PowerShell window to apply database updates and start the application:
+# 1. Compile and execute SQL blueprints
+python manage.py makemigrations
+python manage.py migrate
+
+# 2. Spin up the server
+python manage.py runserver

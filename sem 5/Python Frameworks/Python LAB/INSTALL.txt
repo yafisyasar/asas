@@ -1,0 +1,87 @@
+1 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
+Step 2: Create and Activate the Virtual Environment and update pip
+Run the following commands to create a virtual environment named venv and activate it:
+PowerShell
+2 python -m venv venv
+3 .\venv\Scripts\Activate
+(You will notice a (venv) prefix appear on your terminal line, confirming you are safely isolated).
+4 python -m pip install --upgrade pip
+Ensures pip is updated to the latest version to avoid installation headaches.
+
+Step 3: Install Django and Start the Project
+Install Django via pip and initialize myproject directly at your workspace root:
+PowerShell
+5 pip install django
+6 django-admin startproject myproject .
+(Remember, the . at the end is crucial to keep your project files clean and unnested).
+
+Phase 2: Building the Dashboard App (Root App)
+This app will sit at the absolute root (/) and handle the central landing page.
+Step 4: Create the Dashboard App Scaffold
+Run this command in the terminal:
+PowerShell
+
+
+
+
+
+
+
+3       python manage.py startapp myapp                                 Create an application called myapp.
+
+4             Open myproject/settings.py and add myapp to INSTALLED_APPS.
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'myapp',
+]                                                                
+                     Register the App
+ 
+
+
+5
+Open myapp/views.py.
+
+from django.http import HttpResponse
+
+def home(request):
+    return HttpResponse("Hello, Django!")
+
+•  HttpResponse sends text back to the browser. 
+•  request contains information about the client's request. 
+•  The function home() is called when its URL is accessed.
+6
+Create a new file named urls.py inside the myapp folder.
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.home, name='home'),
+]
+
+                                                                                                   Create App URLs
+7.      
+Open myproject/urls.py.
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('myapp.urls')),
+]                    
+           •  include() connects the app's URL configuration to the project's URL configuration. 
+•  When the browser opens the root URL (/), Django looks in myapp.urls.
+8 .  Run the Server
+ python manage.py runserver
+
+
+
+
+ 
+
+
+

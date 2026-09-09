@@ -1,0 +1,308 @@
+#Employee Management System - CRUD operations
+
+#app.py
+
+from flask import Flask, render_template, request, redirect
+import sqlite3
+
+app = Flask(__name__)
+
+
+# Create database and table
+def init_db():
+
+    conn = sqlite3.connect('employees.db')
+
+    conn.execute('''
+        CREATE TABLE IF NOT EXISTS employees (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            department TEXT NOT NULL,
+            salary REAL NOT NULL
+        )
+    ''')
+
+    conn.commit()
+    conn.close()
+
+
+# READ - Display all employees
+@app.route('/')
+def index():
+
+    conn = sqlite3.connect('employees.db')
+
+    cursor = conn.execute(
+        'SELECT * FROM employees'
+    )
+
+    employees = cursor.fetchall()
+
+    conn.close()
+
+    return render_template(
+        'index.html',
+        employees=employees
+    )
+
+
+# CREATE - Add employee
+@app.route('/add', methods=['GET', 'POST'])
+def add_employee():
+
+    if request.method == 'POST':
+
+        name = request.form['name']
+        department = request.form['department']
+        salary = request.form['salary']
+
+        conn = sqlite3.connect('employees.db')
+
+        conn.execute('''
+            INSERT INTO employees
+            (name, department, salary)
+            VALUES (?, ?, ?)
+        ''', (name, department, salary))
+
+        conn.commit()
+        conn.close()
+
+        return redirect('/')
+
+    return render_template('add.html')
+
+
+# UPDATE - Edit employee
+@app.route('/edit/<int:id>', methods=['GET', 'POST'])
+def edit_employee(id):
+
+    conn = sqlite3.connect('employees.db')
+
+    if request.method == 'POST':
+
+        name = request.form['name']
+        department = request.form['department']
+        salary = request.form['salary']
+
+        conn.execute('''
+            UPDATE employees
+            SET name = ?, department = ?, salary = ?
+            WHERE id = ?
+        ''', (name, department, salary, id))
+
+        conn.commit()
+        conn.close()
+
+        return redirect('/')
+
+    cursor = conn.execute(
+        'SELECT * FROM employees WHERE id = ?',
+        (id,)
+    )
+
+    employee = cursor.fetchone()
+
+    conn.close()
+
+    return render_template(
+        'edit.html',
+        employee=employee
+    )
+
+
+# DELETE - Delete employee
+@app.route('/delete/<int:id>')
+def delete_employee(id):
+
+    conn = sqlite3.connect('employees.db')
+
+    conn.execute(
+        'DELETE FROM employees WHERE id = ?',
+        (id,)
+    )
+
+    conn.commit()
+    conn.close()
+
+    return redirect('/')
+
+
+if __name__ == '__main__':
+    init_db()
+    app.run(debug=True)
+
+/////////////////////////////////////////////
+
+templates/index.html
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Management</title>
+</head>
+
+<body>
+
+    <h1>Employee Management System</h1>
+
+    <a href="/add">Add Employee</a>
+
+    <br><br>
+
+    <table border="1">
+
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Salary</th>
+            <th>Actions</th>
+        </tr>
+
+        {% for employee in employees %}
+
+        <tr>
+
+            <td>{{ employee[0] }}</td>
+
+            <td>{{ employee[1] }}</td>
+
+            <td>{{ employee[2] }}</td>
+
+            <td>{{ employee[3] }}</td>
+
+            <td>
+
+                <a href="/edit/{{ employee[0] }}">
+                    Edit
+                </a>
+
+                |
+
+                <a href="/delete/{{ employee[0] }}">
+                    Delete
+                </a>
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</body>
+</html>
+
+///////////////////////////////////////////////
+
+
+templates/add.html
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Employee</title>
+</head>
+
+<body>
+
+    <h1>Add Employee</h1>
+
+    <form action="/add" method="POST">
+
+        <label>Name:</label>
+        <input type="text" name="name" required>
+
+        <br><br>
+
+        <label>Department:</label>
+        <input type="text" name="department" required>
+
+        <br><br>
+
+        <label>Salary:</label>
+        <input type="number" name="salary" step="0.01" required>
+
+        <br><br>
+
+        <button type="submit">
+            Add Employee
+        </button>
+
+    </form>
+
+    <br>
+
+    <a href="/">Back</a>
+
+</body>
+</html>
+
+///////////////////////////////////////////////////////
+
+templates/edit.html
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Employee</title>
+</head>
+
+<body>
+
+    <h1>Edit Employee</h1>
+
+    <form
+        action="/edit/{{ employee[0] }}"
+        method="POST"
+    >
+
+        <label>Name:</label>
+
+        <input
+            type="text"
+            name="name"
+            value="{{ employee[1] }}"
+            required
+        >
+
+        <br><br>
+
+        <label>Department:</label>
+
+        <input
+            type="text"
+            name="department"
+            value="{{ employee[2] }}"
+            required
+        >
+
+        <br><br>
+
+        <label>Salary:</label>
+
+        <input
+            type="number"
+            name="salary"
+            step="0.01"
+            value="{{ employee[3] }}"
+            required
+        >
+
+        <br><br>
+
+        <button type="submit">
+            Update Employee
+        </button>
+
+    </form>
+
+    <br>
+
+    <a href="/">Back</a>
+
+</body>
+</html>
+
+//////////////////////////////////////////////

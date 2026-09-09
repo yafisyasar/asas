@@ -1,0 +1,129 @@
+Let's build a simple "Task Tracker" project. This is a perfect introduction to Django because it demonstrates how to accept user input, store it in a database, and display it back on a webpage using Python.
+
+Since you already have your virtual environment and Django installed from your previous steps, let's build this step-by-step directly inside your Kaggle notebook or VS Code environment.
+
+Step 1: Create the Project and App Structures
+Run these commands in your terminal to initialize the project configuration and create a dedicated app module named tasks:
+
+PowerShell
+# 1. Create the project configuration
+django-admin startproject myproject .
+
+# 2. Create the tasks application module
+python manage.py startapp tasks
+Now, we need to tell Django that our new tasks app exists. Open the folder myproject, open settings.py, find the INSTALLED_APPS list, and add 'tasks', to it:
+
+Python
+# myproject/settings.py
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'tasks',  # <--- Add this line
+]
+Step 2: Define the Database Table (Model)
+Django handles database management automatically using Python classes called Models.
+
+Open tasks/models.py and replace its contents with this code to define what a single Task looks like:
+
+Python
+# tasks/models.py
+from django.db import models
+
+class Task(models.Model):
+    title = models.CharField(max_length=200) # Text field for the task title
+    completed = models.BooleanField(default=False) # Checkbox state
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    def __str__(self):
+        return self.title
+Step 3: Write the Processing Logic (Views)
+Now we need to write the Python logic that fetches tasks from the database, handles adding a new task when a user clicks submit, and sends everything to the browser window.
+
+Open tasks/views.py and write the following logic:
+
+Python
+# tasks/views.py
+from django.shortcuts import render, redirect
+from .models import Task
+
+def task_list_view(request):
+    # If the user submitted a new task via a form post
+    if request.method == "POST":
+        task_title = request.POST.get("title")
+        if task_title:
+            Task.objects.create(title=task_title) # Saves directly to the database
+        return redirect('task_home')
+
+    # Fetch all tasks currently stored in the database
+    all_tasks = Task.objects.all()
+    
+    # Send the data to the HTML template
+    return render(request, 'tasks/todo.html', {'tasks_list': all_tasks})
+Step 4: Design the Web Interface (Template HTML)
+Django searches inside app directories for a folder called templates to find user interfaces.
+
+Inside your tasks folder, create a new folder named templates.
+
+Inside that new templates folder, create another folder named tasks.
+
+Inside that nested folder, create a file named todo.html.
+
+The resulting file structure should look like this: tasks/templates/tasks/todo.html. Paste this code inside it:
+
+HTML
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Django Task Tracker</title>
+</head>
+<body style="font-family: Arial, sans-serif; margin: 40px;">
+
+    <h2>My Django Task Tracker</h2>
+
+    <form method="POST" style="margin-bottom: 20px;">
+        {% csrf_token %} <input type="text" name="title" placeholder="Enter a new task..." required style="padding: 8px; width: 250px;">
+        <button type="submit" style="padding: 8px 15px; cursor: pointer;">Add Task</button>
+    </form>
+
+    <ul>
+        {% for task in tasks_list %}
+            <li style="font-size: 18px; margin-bottom: 5px;">{{ task.title }}</li>
+        {% empty %}
+            <li style="color: gray;">No tasks found. Add one above!</li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>
+Step 5: Route the Web Addresses (URLs)
+Finally, we must tell Django to display our task_list_view function on the primary homepage address.
+
+Open myproject/urls.py and update its routing configuration:
+
+Python
+# myproject/urls.py
+from django.contrib import admin
+from django.urls import path
+from tasks.views import task_list_view
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', task_list_view, name='task_home'), # Links the root homepage directly to our view
+]
+Step 6: Create the Database and Launch
+Go back to your PowerShell terminal window and run these final commands to finalize your data structures and boot up the development server:
+
+PowerShell
+# Prepares and applies the database files for your Model changes
+python manage.py makemigrations
+python manage.py migrate
+
+# Starts the server
+python manage.py runserver
+Open your browser and navigate to http://127.0.0.1:8000/. Type a task into the box, hit add, and watch Django dynamically update the database and render your list layout in real time!

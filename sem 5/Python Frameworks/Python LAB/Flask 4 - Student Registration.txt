@@ -1,0 +1,195 @@
+#To create a Flask application that accepts student details and stores them in an SQLite database.
+
+#app.py
+
+from flask import Flask, render_template, request
+import sqlite3
+
+app = Flask(__name__)
+
+
+# Create database and table
+def init_db():
+    conn = sqlite3.connect('students.db')
+
+    conn.execute('''
+        CREATE TABLE IF NOT EXISTS students (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            roll_no TEXT NOT NULL,
+            department TEXT NOT NULL,
+            email TEXT NOT NULL
+        )
+    ''')
+
+    conn.commit()
+    conn.close()
+
+
+# Display registration form
+@app.route('/')
+def home():
+    return render_template('register.html')
+
+
+# Register student
+@app.route('/register', methods=['POST'])
+def register():
+
+    name = request.form['name']
+    roll_no = request.form['roll_no']
+    department = request.form['department']
+    email = request.form['email']
+
+    conn = sqlite3.connect('students.db')
+
+    conn.execute('''
+        INSERT INTO students (name, roll_no, department, email)
+        VALUES (?, ?, ?, ?)
+    ''', (name, roll_no, department, email))
+
+    conn.commit()
+    conn.close()
+
+    return render_template('success.html')
+
+
+# Display all students
+@app.route('/students')
+def students():
+
+    conn = sqlite3.connect('students.db')
+
+    cursor = conn.execute('SELECT * FROM students')
+
+    students = cursor.fetchall()
+
+    conn.close()
+
+    return render_template(
+        'students.html',
+        students=students
+    )
+
+
+if __name__ == '__main__':
+    init_db()
+    app.run(debug=True)
+
+///////////////////////////////////////////////////////////////
+
+templates/register.html
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Registration</title>
+</head>
+
+<body>
+
+    <h1>Student Registration</h1>
+
+    <form action="/register" method="POST">
+
+        <label>Name:</label>
+        <input type="text" name="name" required>
+
+        <br><br>
+
+        <label>Roll Number:</label>
+        <input type="text" name="roll_no" required>
+
+        <br><br>
+
+        <label>Department:</label>
+        <input type="text" name="department" required>
+
+        <br><br>
+
+        <label>Email:</label>
+        <input type="email" name="email" required>
+
+        <br><br>
+
+        <button type="submit">Register</button>
+
+    </form>
+
+    <br>
+
+    <a href="/students">View Students</a>
+
+</body>
+</html>
+
+//////////////////////////////////////////////////
+
+templates/students.html
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Students</title>
+</head>
+
+<body>
+
+    <h1>Registered Students</h1>
+
+    <table border="1">
+
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Roll Number</th>
+            <th>Department</th>
+            <th>Email</th>
+        </tr>
+
+        {% for student in students %}
+
+        <tr>
+            <td>{{ student[0] }}</td>
+            <td>{{ student[1] }}</td>
+            <td>{{ student[2] }}</td>
+            <td>{{ student[3] }}</td>
+            <td>{{ student[4] }}</td>
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    <br>
+
+    <a href="/">Register Another Student</a>
+
+</body>
+</html>
+
+///////////////////////////////////////////////
+
+templates/success.html
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registration Successful</title>
+</head>
+
+<body>
+
+    <h1>Student Registered Successfully!</h1>
+
+    <br>
+
+    <a href="/">Go Back to Home</a>
+
+    <br><br>
+
+    <a href="/students">View All Students</a>
+
+</body>
+</html>
+

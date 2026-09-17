@@ -1,0 +1,9 @@
+List of programs for lab record
+1. Program to demonstrate pre-processing using Iris dataset
+2. Program to demonstrate pre-processing using Titanic dataset
+3. Multivariate linear regression: Sales prediction based on advertising (dataset- company_data.csv)
+4. Logistic regression: Survivability prediction using Titanic dataset
+5. Multi label classification of iris dataset with KNN
+6. Binary classification on Titanic dataset with KNN
+7. Multi label classification of iris dataset with Decision Tree
+8. Car evaluation prediction with Decision Tree classifier (dataset: car_evaluation.csv)

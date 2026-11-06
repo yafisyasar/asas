@@ -1,0 +1,27 @@
+import pandas as pd
+import numpy as np
+
+df = pd.DataFrame({
+    "Name": ["Anu", "Binu", "Cathy", "David"],
+    "Age": [20, np.nan, 19, 22],
+    "Marks": [85, 90, np.nan, 88],
+    "City": ["Kochi", "Kochi", np.nan, "Thrissur"]
+})
+
+print("Original dataset:")
+print(df)
+
+print("\nMissing values:")
+print(df.isnull().sum())
+
+# Replace missing Age with mean
+df["Age"] = df["Age"].fillna(df["Age"].mean())
+
+# Replace missing Marks with mean
+df["Marks"] = df["Marks"].fillna(df["Marks"].mean())
+
+# Replace missing City with mode
+df["City"] = df["City"].fillna(df["City"].mode()[0])
+
+print("\nCleaned dataset:")
+print(df)

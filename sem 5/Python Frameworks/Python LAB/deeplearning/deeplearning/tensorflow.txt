@@ -1,0 +1,58 @@
+import tensorflow as tf
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Step 1: Load the Fashion-MNIST dataset
+fashion_mnist = tf.keras.datasets.fashion_mnist
+
+(x_train, y_train), (x_test, y_test) = fashion_mnist.load_data()
+
+# Step 2: Normalize pixel values from 0-255 to 0-1
+x_train = x_train / 255.0
+x_test = x_test / 255.0
+
+# Step 3: Build the deep learning model
+model = tf.keras.Sequential([
+    tf.keras.layers.Input(shape=(28, 28)),
+    tf.keras.layers.Flatten(),
+    tf.keras.layers.Dense(128, activation='relu'),
+    tf.keras.layers.Dense(10, activation='softmax')
+])
+
+# Step 4: Compile the model
+model.compile(
+    optimizer='adam',
+    loss='sparse_categorical_crossentropy',
+    metrics=['accuracy']
+)
+
+# Step 5: Train the model
+model.fit(
+    x_train,
+    y_train,
+    epochs=5,
+    validation_split=0.1
+)
+
+# Step 6: Evaluate the model
+test_loss, test_accuracy = model.evaluate(x_test, y_test)
+
+print("Test Accuracy:", test_accuracy)
+
+# Step 7: Predict the class of a test image
+class_names = [
+    'T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat',
+    'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle boot'
+]
+
+predictions = model.predict(x_test[:1])
+predicted_class = np.argmax(predictions[0])
+
+print("Predicted Class:", class_names[predicted_class])
+print("Actual Class:", class_names[y_test[0]])
+
+# Display the test image
+plt.imshow(x_test[0], cmap='gray')
+plt.title("Predicted: " + class_names[predicted_class])
+plt.axis('off')
+plt.show()

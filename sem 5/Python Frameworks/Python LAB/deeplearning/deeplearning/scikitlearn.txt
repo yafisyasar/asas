@@ -1,0 +1,29 @@
+python -m pip install scikit-learn numpy
+
+import numpy as np
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error
+
+# Step 1: Prepare the dataset
+X = np.array([[1], [2], [3], [4], [5]])
+y = np.array([35, 40, 50, 60, 70])
+
+# Step 2: Create the model
+model = LinearRegression()
+
+# Step 3: Train the model
+model.fit(X, y)
+
+# Step 4: Predict marks for 6 hours of study
+predicted_marks = model.predict([[6]])
+
+# Step 5: Display results
+print("Slope:", model.coef_[0])
+print("Intercept:", model.intercept_)
+print("Predicted marks for 6 hours:", predicted_marks[0])
+
+# Step 6: Evaluate the model on the training data
+predictions = model.predict(X)
+mse = mean_squared_error(y, predictions)
+print("Mean Squared Error:", mse)
+

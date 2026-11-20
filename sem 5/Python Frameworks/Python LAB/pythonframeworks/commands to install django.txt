@@ -1,0 +1,32 @@
+python -m venv venv
+Creates a isolated virtual environment named venv in your current directory.
+avoiding Dependency Hell (Version Conflicts)
+Imagine you are working on two different projects:
+
+Project A is an older website that relies on Django 3.2.
+
+Project B is a brand-new website (the one you just created) using Django 5.0.
+
+If you install packages globally, upgrading Django to version 5.0 for Project B will completely overwrite version 3.2. Suddenly, Project A stops working because its old code doesn't understand the new version of Django. A virtual environment ensures that Project A and Project B never even know the other exists.
+Virtual environments live inside your local project folders, meaning you never need admin permissions to add or remove tools.
+
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
+Temporarily bypasses the Windows PowerShell execution policy for the current session only, allowing you to run the activation script without permanently compromising your system security.
+
+venv\scripts\Activate
+Activates the virtual environment. (You should see (venv) appear at the beginning of your terminal prompt).
+
+python -m pip install --upgrade pip
+Ensures pip is updated to the latest version to avoid installation headaches.
+
+pip install django
+Downloads and installs the latest stable version of Django inside your virtual environment.
+
+django-admin startproject myproject .
+Initializes a new Django project named myproject. The . at the end is a great practice—it prevents Django from creating an extra, redundant nested directory.
+
+python manage.py migrate
+Runs the initial database migrations, setting up SQLite (Django's default) and creating tables for user authentication, sessions, and admin management.
+
+python manage.py runserver
+Starts the local development server.

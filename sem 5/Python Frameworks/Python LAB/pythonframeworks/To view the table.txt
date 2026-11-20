@@ -1,0 +1,33 @@
+Django builds a fully functional data-viewing website for you automatically. We just need to register our table so Django knows to show it.
+
+1. Register your table
+Open your tasks/admin.py file and update it to look like this:
+
+Python
+# tasks/admin.py
+from django.contrib import admin
+from .models import Task  # Import your Task table
+
+# Tell Django to show the Task table in the admin panel
+admin.site.register(Task)
+2. Create an Admin User account
+To log into this panel, you need to create an administrator account. Go to your terminal, stop your server if it is running (Ctrl + C), and run this command:
+
+PowerShell
+python manage.py createsuperuser
+It will ask you for a Username (e.g., admin).
+
+It will ask for an Email (you can just press Enter to leave it blank).
+
+It will ask for a Password (Note: The letters will not show up on your screen while you type for security. Just type it and hit enter, then confirm it).
+
+3. Log in and view the data
+Start your server back up:
+
+PowerShell
+python manage.py runserver
+Now, open your web browser and navigate to:
+
+http://127.0.0.1:8000/admin
+
+Log in using the username and password you just created. You will see a clean dashboard with Tasks listed. Click on it, and you can see every single task stored in your database, edit them, or add new ones!

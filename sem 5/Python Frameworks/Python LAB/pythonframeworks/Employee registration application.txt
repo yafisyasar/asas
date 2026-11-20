@@ -1,0 +1,215 @@
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
+python -m venv venv
+.\venv\Scripts\Activate
+django-admin startproject myproject .
+python manage.py startapp employees
+Open myproject/settings.py and add 'employees' to your INSTALLED_APPS:
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'employees',  # <--- Add your app here
+]
+
+Step 1: Define the Model (models.py)
+# employees/models.py
+from django.db import models
+
+class Employee(models.Model):
+    empid = models.CharField(max_length=50, unique=True, verbose_name="Employee ID")
+    name = models.CharField(max_length=100, verbose_name="Full Name")
+    email = models.EmailField(unique=True, verbose_name="Email Address")
+    username = models.CharField(max_length=150, unique=True, verbose_name="Username")
+    password = models.CharField(max_length=128, verbose_name="Password")
+
+    def __str__(self):
+        return f"{self.name} ({self.empid})"
+
+Step 2: Create the Form (forms.py)
+Create a ModelForm with an extra field for password confirmation and validation to ensure the passwords match.
+# employees/forms.py
+from django import forms
+from .models import Employee
+from django.contrib.auth.hashers import make_password
+
+class EmployeeRegistrationForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput)
+    password_confirmation = forms.CharField(
+        widget=forms.PasswordInput, 
+        label="Confirm Password"
+    )
+
+    class Meta:
+        model = Employee
+        fields = ['empid', 'name', 'email', 'username', 'password']
+        widgets = {
+            'password': forms.PasswordInput(),
+        }
+
+    def clean(self):
+        cleaned_data = super().clean()
+        password = cleaned_data.get("password")
+        password_confirmation = cleaned_data.get("password_confirmation")
+
+        if password and password_confirmation and password != password_confirmation:
+            raise forms.ValidationError("The two password fields didn't match.")
+        
+        return cleaned_data
+
+    def save(self, commit=True):
+        employee = super().save(commit=False)
+        employee.password = make_password(self.cleaned_data["password"])
+        if commit:
+            employee.save()
+        return employee
+
+Step 3: Create the View (views.py)
+Write a view to handle form submission, validation, and saving the data to the database.
+# employees/views.py
+from django.shortcuts import render, redirect
+from .forms import EmployeeRegistrationForm
+from django.contrib import messages
+
+def home_page(request):
+    return render(request, 'employees/home.html')
+
+def register_employee(request):
+    if request.method == 'POST':
+        form = EmployeeRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Employee registered successfully!")
+            return redirect('register_employee')
+    else:
+        form = EmployeeRegistrationForm()
+    
+    return render(request, 'employees/register.html', {'form': form})
+
+Step 4: Create the Template
+Create a folder structure like this inside your employees app:
+employees/templates/employees/home.html
+employees/templates/employees/register.html
+
+
+<!-- employees/templates/employees/home.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Portal - Home</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 100px; background-color: #f9f9f9; }
+        .container { max-width: 500px; margin: auto; padding: 30px; background: white; border: 1px solid #ddd; border-radius: 8px; }
+        .btn { display: inline-block; padding: 10px 20px; background-color: #007BFF; color: white; text-decoration: none; border-radius: 4px; font-weight: bold; }
+        .btn:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Welcome to the Employee Portal</h1>
+    <p>Manage and register new employee records seamlessly.</p>
+    <a href="{% url 'register_employee' %}" class="btn">Register New Employee</a>
+</div>
+</body>
+</html>
+
+
+
+<!-- employees/templates/employees/register.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Registration</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 50px; }
+        .form-container { max-width: 400px; padding: 20px; border: 1px solid #ccc; border-radius: 5px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; }
+        .form-group input { width: 100%; padding: 8px; box-sizing: border-box; }
+        .errorlist { color: red; font-size: 0.9em; list-style: none; padding: 0; }
+        .success { color: green; margin-bottom: 15px; }
+        button { padding: 10px 15px; background-color: #007BFF; color: white; border: none; border-radius: 3px; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Employee Registration</h2>
+    
+    {% if messages %}
+        {% for message in messages %}
+            <div class="success">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        
+        {{ form.non_field_errors }}
+
+        {% for field in form %}
+            <div class="form-group">
+                {{ field.label_tag }}
+                {{ field }}
+                {{ field.errors }}
+            </div>
+        {% endfor %}
+
+        <button type="submit">Register Employee</button>
+    </form>
+</div>
+
+</body>
+</html>
+
+Step 5: Wire Up the URLs (urls.py)
+Map the view to a URL pattern.
+# employees/urls.py
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.home_page, name='home'),
+    path('register/', views.register_employee, name='register_employee'),
+]
+
+Include your app's URLs in your main project's urls.py:
+# project/urls.py
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('employees.urls')),  # Root URL points directly to home page
+]
+
+//////////////////////////////////
+# employees/admin.py
+from django.contrib import admin
+from .models import Employee
+
+@admin.register(Employee)
+class EmployeeAdmin(admin.ModelAdmin):
+    list_display = ('empid', 'name', 'email', 'username')
+    search_fields = ('empid', 'name', 'email', 'username')
+    readonly_fields = ('password',)
+
+/////////////////////////////////////////////////
+
+Step 6: Run Migrations
+After setting up the code, run the following commands in your terminal to create the database table:
+
+python manage.py makemigrations
+python manage.py migrate
+python manage.py createsuperuser
+python manage.py runserver
+
+
+
+http://127.0.0.1:8000/admin/
+
